@@ -3,6 +3,7 @@ package appointment.project.application.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,10 @@ public class UserController {
 	
 	@RequestMapping("/test")
 	public UserDTO getUserTest() {
-		return new UserDTO();
+		User user = new User();
+		ModelMapper modelMapper = new ModelMapper();
+		UserDTO userDto = modelMapper.map(user, UserDTO.class);
+		return userDto;
 	}
 	
 	@GetMapping("/test2")
@@ -36,6 +40,7 @@ public class UserController {
 	
 	@GetMapping("/getAll")
 	public List<User> getAllUsers() {
+		
 		return userRepository.findAll();
 	}
 

@@ -1,0 +1,35 @@
+#cate o masina pt fiecare din cele 2
+#o retea
+#disk pentru postgres
+version: '3.7'
+services:
+  appointment-service:
+    #image: appointment:latest
+    build:
+      dockerfile: Dockerfile
+      context: .
+    #ports:
+     # - 8080:8080
+    depends_on:
+      - appointment-database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://appointment-database:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    networks:
+      appointment-network:
+        aliases:
+          - appointment-service
+   
+  appointment-database:
+    image:  postgres:latest
+    networks:
+      appointment-network:
+        aliases:
+          - appointment-database
+    ports:
+      - '54321:5432'
+    volumes:
+      - ./data/:/var/lib/postgres
+networks:
+  appointment-network:

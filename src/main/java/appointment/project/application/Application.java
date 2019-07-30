@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories("appointment.project.repositories")
 public class Application {
-
+	//this is the main static method
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}

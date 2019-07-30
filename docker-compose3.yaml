@@ -1,0 +1,27 @@
+#cate o masina pt fiecare din cele 2
+#o retea
+#disk pentru postgres
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - '54321:5432'
+    environment:
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'testdb'
+    volumes:
+     - ./init:/docker-entrypoint-initdb.d/
+     
+
+  
+  web:
+    #build: .
+    image: appointment:latest
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+volumes:
+   sample_db2: {} 
